@@ -1,0 +1,130 @@
+swagger: '2.0'
+info:
+  title: Carpark Availability API
+  description: API for retrieving information about carpark availability and managing reservations
+  version: 1.0.0
+basePath: /api
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /carparks:
+    get:
+      summary: Retrieve a list of all available carparks and their details
+      responses:
+        200:
+          description: List of carparks and their details
+    post:
+      summary: Create a new carpark
+      responses:
+        201:
+          description: Created
+  /carparks/{carpark_id}:
+    get:
+      summary: Retrieve details of a specific carpark by ID
+      parameters:
+        - name: carpark_id
+          in: path
+          required: true
+          type: string
+      responses:
+        200:
+          description: Carpark details
+        404:
+          description: Carpark not found
+  /carparks/search:
+    get:
+      summary: Search for carparks based on user-provided criteria
+      parameters:
+        - name: location
+          in: query
+          description: Location to search for carparks
+          required: false
+          type: string
+        - name: availability
+          in: query
+          description: Minimum number of available parking lots
+          required: false
+          type: integer
+      responses:
+        200:
+          description: List of carparks matching the criteria
+  /carparks/reserve:
+    post:
+      summary: Reserve a parking lot for a specified duration
+      parameters:
+        - name: body
+          in: body
+          description: Request body containing reservation details
+          required: true
+          schema:
+            $ref: '#/definitions/ReservationRequest'
+      responses:
+        201:
+          description: Reservation created
+  /carparks/reservations:
+    get:
+      summary: Retrieve a list of all reservations made by the user
+      responses:
+        200:
+          description: List of reservations
+  /carparks/reservations/{reservation_id}:
+    get:
+      summary: Retrieve details of a specific reservation by ID
+      parameters:
+        - name: reservation_id
+          in: path
+          required: true
+          type: string
+      responses:
+        200:
+          description: Reservation details
+        404:
+          description: Reservation not found
+    put:
+      summary: Update details of a specific reservation
+      parameters:
+        - name: reservation_id
+          in: path
+          required: true
+          type: string
+        - name: body
+          in: body
+          description: Request body containing updated reservation details
+          required: true
+          schema:
+            $ref: '#/definitions/ReservationUpdateRequest'
+      responses:
+        200:
+          description: Reservation updated
+        404:
+          description: Reservation not found
+    delete:
+      summary: Cancel a specific reservation by ID
+      parameters:
+        - name: reservation_id
+          in: path
+          required: true
+          type: string
+      responses:
+        204:
+          description: Reservation canceled
+        404:
+          description: Reservation not found
+
+definitions:
+  ReservationRequest:
+    type: object
+    properties:
+      carpark_id:
+        type: string
+      duration:
+        type: integer
+  ReservationUpdateRequest:
+    type: object
+    properties:
+      duration:
+        type: integer

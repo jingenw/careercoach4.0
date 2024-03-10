@@ -78,6 +78,35 @@ The Carpark Availability API architecture is designed for scalability, leveragin
 
 The fully serverless architecture means there is less manual involvement in maintaining, provisioning and scaling of the architecture.
 
+## Database Schema
+
+**Carpark Details**
+| Field                  | Data Type          | Description                     |
+|------------------------|--------------------|---------------------------------|
+| car_park_no            | String             | Car park number                |
+| address                | String             | Address of the car park        |
+| x_coord                | Float              | X-coordinate of the car park   |
+| y_coord                | Float              | Y-coordinate of the car park   |
+| car_park_type          | String             | Type of car park               |
+| type_of_parking_system | String             | Type of parking system         |
+| short_term_parking     | String             | Availability of short-term parking |
+| free_parking           | String             | Availability of free parking   |
+| night_parking          | String             | Availability of night parking  |
+| car_park_decks         | Integer            | Number of car park decks       |
+| gantry_height          | Float              | Height of the gantry            |
+| car_park_basement      | Integer            | Number of car park basements   |
+
+**Carpark Availability**
+
+| Field           | Data Type          | Description                     |
+|-----------------|--------------------|---------------------------------|
+| timestamp       | DateTime           | Timestamp of the data           |
+| carpark_number  | String             | Car park number                 |
+| total_lots      | Integer            | Total number of parking lots    |
+| lot_type        | String             | Type of parking lot             |
+| lots_available  | Integer            | Number of available parking lots|
+| update_datetime | DateTime           | Timestamp of the update         |
+
 
 ## Possible Additions
 
@@ -102,6 +131,8 @@ In the event that the application goes global, AWS CloudFront can be placed in f
 
 In the case of static assets being required (etc. images of the carparks), S3 is a convenient and simple service to store them.
 
+If there is a need for high write throughput and scalability, database sharding can be used.
+
 ## Conclusion
 This concludes the documentation for the AWS services used in the Carpark Availability API architecture and their roles. By leveraging these services, the Carpark Availability API offers a scalable, reliable, and secure solution for managing carpark availability data.
 
@@ -121,7 +152,3 @@ This concludes the documentation for the AWS services used in the Carpark Availa
 
 
 questions 1) shoudl i add a cache layer? does it make sense given how fast the carpark info is updated? 2) does sqs make sense here for decoupling? i already have rds proxy. 3) how shoudl i partition the table? 3) how to make the api globally available? 4) is s3 needed for static assets?
-
-ADD SEPARATE FLOW FOR READING AND WRITING!!!
-
-Lmabda has max concurrency of 1000!
