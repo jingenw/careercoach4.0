@@ -109,6 +109,18 @@ The fully serverless architecture means there is less manual involvement in main
 | lots_available  | Integer            | Number of available parking lots|
 | update_datetime | DateTime           | Timestamp of the update         |
 
+## API Table
+
+| Endpoint                           | Method | Description                                                  |
+|------------------------------------|--------|--------------------------------------------------------------|
+| /api/carparks                     | GET    | Retrieve a list of all available carparks and their details. |
+| /api/carparks/{carpark_id}        | GET    | Retrieve details of a specific carpark by ID.               |
+| /api/carparks/search              | GET    | Search for carparks based on user-provided criteria (e.g., location, availability). |
+| /api/carparks/reservations             | POST   | Reserve a parking lot for a specified duration.             |
+| /api/carparks/reservations       | GET    | Retrieve a list of all reservations made by the user.      |
+| /api/carparks/reservations/{reservation_id} | GET    | Retrieve details of a specific reservation by ID.      |
+| /api/carparks/reservations/{reservation_id} | PUT    | Update details of a specific reservation (e.g., extend reservation duration). |
+| /api/carparks/reservations/{reservation_id} | DELETE | Cancel a specific reservation by ID.                        |
 
 ## Possible Additions
 
@@ -137,20 +149,3 @@ If there is a need for high write throughput and scalability, database sharding 
 
 ## Conclusion
 This concludes the documentation for the AWS services used in the Carpark Availability API architecture and their roles. By leveraging these services, the Carpark Availability API offers a scalable, reliable, and secure solution for managing carpark availability data.
-
-
-## API Table
-
-| Endpoint                           | Method | Description                                                  |
-|------------------------------------|--------|--------------------------------------------------------------|
-| /api/carparks                     | GET    | Retrieve a list of all available carparks and their details. |
-| /api/carparks/{carpark_id}        | GET    | Retrieve details of a specific carpark by ID.               |
-| /api/carparks/search              | GET    | Search for carparks based on user-provided criteria (e.g., location, availability). |
-| /api/carparks/reservations             | POST   | Reserve a parking lot for a specified duration.             |
-| /api/carparks/reservations       | GET    | Retrieve a list of all reservations made by the user.      |
-| /api/carparks/reservations/{reservation_id} | GET    | Retrieve details of a specific reservation by ID.      |
-| /api/carparks/reservations/{reservation_id} | PUT    | Update details of a specific reservation (e.g., extend reservation duration). |
-| /api/carparks/reservations/{reservation_id} | DELETE | Cancel a specific reservation by ID.                        |
-
-
-questions 1) shoudl i add a cache layer? does it make sense given how fast the carpark info is updated? 2) does sqs make sense here for decoupling? i already have rds proxy. 3) how shoudl i partition the table? 3) how to make the api globally available? 4) is s3 needed for static assets?
