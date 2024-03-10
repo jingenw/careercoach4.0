@@ -1,5 +1,7 @@
 # Carpark Availability API - AWS Services Documentation
 
+![Architecture Diagram](cc4_task2.drawio.png)
+
 ## Introduction
 This document outlines the AWS services used in the Carpark Availability API architecture and their roles.
 
