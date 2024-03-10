@@ -146,7 +146,7 @@ This concludes the documentation for the AWS services used in the Carpark Availa
 | /api/carparks                     | GET    | Retrieve a list of all available carparks and their details. |
 | /api/carparks/{carpark_id}        | GET    | Retrieve details of a specific carpark by ID.               |
 | /api/carparks/search              | GET    | Search for carparks based on user-provided criteria (e.g., location, availability). |
-| /api/carparks/reserve             | POST   | Reserve a parking lot for a specified duration.             |
+| /api/carparks/reservations             | POST   | Reserve a parking lot for a specified duration.             |
 | /api/carparks/reservations       | GET    | Retrieve a list of all reservations made by the user.      |
 | /api/carparks/reservations/{reservation_id} | GET    | Retrieve details of a specific reservation by ID.      |
 | /api/carparks/reservations/{reservation_id} | PUT    | Update details of a specific reservation (e.g., extend reservation duration). |
